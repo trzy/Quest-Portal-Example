@@ -29,7 +29,7 @@ public class PortalCamera : MonoBehaviour
   private Camera m_leftCamera;
   private Camera m_rightCamera;
 
-  private void Update()
+  private void LateUpdate()
   {
     if (Camera.main.stereoEnabled)
     {
