@@ -41,11 +41,8 @@ public class PortalCamera : MonoBehaviour
 
       // Reposition center anchor point at the other side of the portal based on relative position of each eye
       // to the portal entrance
-      Vector3 leftEyeOffsetFromPortal = leftEyePosition - m_portalLocalObservationPoint.position;
-      Vector3 rightEyeOffsetFromPortal = rightEyePosition - m_portalLocalObservationPoint.position;
-
-      m_leftCamera.transform.position = m_portalRemoteObservationPoint.position + leftEyeOffsetFromPortal;
-      m_rightCamera.transform.position = m_portalRemoteObservationPoint.position + rightEyeOffsetFromPortal;
+      m_leftCamera.transform.position = m_portalRemoteObservationPoint.TransformPoint(m_portalLocalObservationPoint.InverseTransformPoint(leftEyePosition));
+      m_rightCamera.transform.position = m_portalRemoteObservationPoint.TransformPoint(m_portalLocalObservationPoint.InverseTransformPoint(rightEyePosition));
 
       m_leftCamera.transform.rotation = m_portalRemoteObservationPoint.rotation * Quaternion.Inverse(m_portalLocalObservationPoint.rotation) * leftEyeRotation;
       m_rightCamera.transform.rotation = m_portalRemoteObservationPoint.rotation * Quaternion.Inverse(m_portalLocalObservationPoint.rotation) * rightEyeRotation;
@@ -61,8 +58,7 @@ public class PortalCamera : MonoBehaviour
       // Reposition center anchor point at the other side of the portal based on relative position of our head
       // to the portal entrance
       Transform cameraTransform = Camera.main.transform;
-      Vector3 userOffsetFromPortal = cameraTransform.position - m_portalLocalObservationPoint.position;
-      m_centerCamera.transform.position = m_portalRemoteObservationPoint.position + userOffsetFromPortal;
+      m_centerCamera.transform.position = m_portalRemoteObservationPoint.TransformPoint(m_portalLocalObservationPoint.InverseTransformPoint(cameraTransform.position));
       m_centerCamera.transform.rotation = m_portalRemoteObservationPoint.rotation * Quaternion.Inverse(m_portalLocalObservationPoint.rotation) * cameraTransform.rotation;
       m_centerCamera.projectionMatrix = Camera.main.projectionMatrix;
     }
