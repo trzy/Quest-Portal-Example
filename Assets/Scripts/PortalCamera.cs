@@ -9,7 +9,7 @@ public class PortalCamera : MonoBehaviour
   [SerializeField]
   private MeshRenderer m_portalRenderer;
 
-  [Tooltip("A transfor on the local end (entrance) of the portal.")]
+  [Tooltip("A transform on the local end (entrance) of the portal.")]
   [SerializeField]
   private Transform m_portalLocalObservationPoint;
 
